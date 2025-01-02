@@ -19,7 +19,7 @@ namespace CustomAuth.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return View(_context.UserAccounts.ToList());
         }
 
         public IActionResult Registration()
@@ -89,6 +89,12 @@ namespace CustomAuth.Controllers
 
             }
             return View(model);
+        }
+
+        public IActionResult LogOut()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index");
         }
 
         [Authorize]
